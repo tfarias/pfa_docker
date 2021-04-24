@@ -1,0 +1,44 @@
+version: '3'
+services:
+  pfa-laravel:
+    build: .
+    container_name: pfa-laravel
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - pfa-mysql
+    networks:
+      - pfa-network
+
+  pfa-mysql:
+    image: mysql:5.7.22
+    command: --innodb-use-native-aio=0
+    container_name: pfa-mysql
+    restart: always
+    tty: true
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./.docker/dbdata:/var/lib/mysql"
+    environment:
+      MYSQL_DATABASE: pfa-laravel
+      MYSQL_ROOT_PASSWORD: laravel
+    networks:
+      - pfa-network
+
+  pfa-ngnix:
+    build: ./.docker/nginx
+    restart: unless-stopped
+    container_name: pfa-ngnix
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - pfa-laravel
+    networks:
+      - pfa-network
+
+networks:
+  pfa-network:
+    driver: bridge

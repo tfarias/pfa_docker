@@ -5,14 +5,17 @@
 ## Pemissões
 
 ```
-Antes de tudo deve verificar as permissões.
-Testei no play-with-docker e lá tive que fazer essas configurações.
+Após fazer o pull da aplicação é recomendado executar esse comando
 
-$ sudo addgroup docker
+$ sudo chown -R $USER:$USER $(pwd)
 
-$ sudo addgroup $USER docker
+caso não esteja funcionando execute este comando
 
-$ sudo chown -R $USER:docker $(pwd) //esse comando deve ser executado na raiz do projeto
+$ chmod 777 $(pwd)
+
+$ mv .env.example .env
+
+$ mkdir .docker/dbdata
 
 ```
 
@@ -27,9 +30,6 @@ $ sudo chown -R $USER:docker $(pwd) //esse comando deve ser executado na raiz do
 
 ```
 
-- antes de rodar os comandos .
-    verifique se existe a pasta .docker/dbdata
-
 - docker network create pfa-desafio
 
 - docker run -d -v "$PWD/.docker/dbdata":/var/lib/mysql --name pfa-mysql --network pfa-desafio -e MYSQL_ROOT_PASSWORD=laravel -e MYSQL_DATABASE=pfa_laravel -p 3306:3306 mysql:5.7
@@ -41,6 +41,7 @@ $ sudo chown -R $USER:docker $(pwd) //esse comando deve ser executado na raiz do
 
 ```
 após executar os comandos acima entrar no containder pfa-laravel e rodar os comandos
+$ docker exec -it pfa-laravel bash
 $ composer install
 $ php artisan migrate
 $ php artisan db:seed

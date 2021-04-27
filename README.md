@@ -7,6 +7,8 @@
 ```
 Após fazer o pull da aplicação é recomendado executar esse comando
 
+$ cd pfa_docker
+
 $ sudo chown -R $USER:$USER $(pwd)
 
 caso não esteja funcionando execute este comando

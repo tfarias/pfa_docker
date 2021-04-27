@@ -45,6 +45,11 @@ $ docker exec -it pfa-laravel bash
 $ composer install
 $ php artisan migrate
 $ php artisan db:seed
+
+caso de erro de permissão de dentro do laravel basta executar esse comando
+
+$ chmod -R 775 storage
+
 ```
 
 ## utilizado meu instalador de codigos para geração da listagem

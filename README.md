@@ -2,6 +2,20 @@
 
 ## Feito com Laravel
 
+## Pemissões
+
+```
+Antes de tudo deve verificar as permissões.
+Testei no play-with-docker e lá tive que fazer essas configurações.
+
+$ sudo addgroup docker
+
+$ sudo addgroup $USER docker
+
+$ sudo chown -R $USER:docker $(pwd) //esse comando deve ser executado na raiz do projeto
+
+```
+
 ## Build Imagens
 
 ```
@@ -12,8 +26,11 @@
 ## RUN
 
 ```
+
 - antes de rodar os comandos .
     verifique se existe a pasta .docker/dbdata
+
+- docker network create pfa-desafio
 
 - docker run -d -v "$PWD/.docker/dbdata":/var/lib/mysql --name pfa-mysql --network pfa-desafio -e MYSQL_ROOT_PASSWORD=laravel -e MYSQL_DATABASE=pfa_laravel -p 3306:3306 mysql:5.7
 - docker run -d -v "$PWD":/var/www --network pfa-desafio --name pfa-laravel tfariasg3/pfa-laravel:latest
